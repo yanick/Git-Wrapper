@@ -38,6 +38,7 @@ sub _cmd {
   my $opt = ref $_[0] eq 'HASH' ? shift : {};
 
   my @cmd = $GIT;
+  my $stdin = "";
 
   for (grep { /^-/ } keys %$opt) {
     (my $name = $_) =~ s/^-//;
@@ -48,6 +49,10 @@ sub _cmd {
   push @cmd, $cmd;
   for my $name (keys %$opt) {
     my $val = delete $opt->{$name};
+    if ( $name eq '<' ) {
+        $stdin = $val;
+        next;
+    }
     next if $val eq '0';
     push @cmd, _opt($name) . ($val eq '1' ? "" : "=$val");
   }
@@ -59,10 +64,11 @@ sub _cmd {
 
   {
     my $d = pushd $self->dir;
-    my ($wtr, $rdr, $err);
+    my ( $wtr, $rdr, $err);
     $err = Symbol::gensym;
     print STDERR join(' ',@cmd),"\n" if $DEBUG;
     my $pid = IPC::Open3::open3($wtr, $rdr, $err, @cmd);
+    print $wtr $stdin;
     close $wtr;
     chomp(@out = <$rdr>);
     chomp(@err = <$err>);
@@ -278,6 +284,12 @@ arguments are passed as ordinary command arguments.
   $git->commit({ all => 1, message => "stuff" });
 
   $git->checkout("mybranch");
+
+For git subcommands that require something from stdin (like
+'git-commit-tree'), the special option '<' can be used to 
+give the input text.
+
+    $git->commit_tree( { '<' => 'a fine tree' }, $ref, -p => $parent_ref );
 
 Output is available as an array of lines, each chomped.
 
