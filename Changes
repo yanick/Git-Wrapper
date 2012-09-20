@@ -2,6 +2,10 @@ Revision history for {{$dist->name}}
 
 {{$NEXT}}
 
+0.027     2012-09-19 22:32:52 America/New_York
+
+        Disable --no-abbrev-commit when git doesn't support it
+
 0.026     2012-09-17 20:52:45 America/Los_Angeles
 
         Disable ANSI output for the branch command (John SJ Anderson)
