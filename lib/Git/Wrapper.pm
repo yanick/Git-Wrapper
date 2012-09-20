@@ -438,14 +438,16 @@ binary in the current $PATH.
 
 =head2 supports_status_porcelain
 
+=head2 supports_log_no_abbrev_commit
+
 =head2 supports_log_raw_dates
 
 =head2 supports_hash_object_filters
 
 These methods return a true or false value (1 or 0) indicating whether the git
 binary being used has support for these options. (The '--porcelain' option on
-'git status', the '--date=raw' option on 'git log', and the '--no-filters'
-option on 'git hash-object' respectively.)
+'git status', the '--no-abbrev-commit' and '--date=raw' options on 'git log',
+and the '--no-filters' option on 'git hash-object' respectively.)
 
 These are primarily for use in this distribution's test suite, but may also be
 useful when writing code using Git::Wrapper that might be run with different
