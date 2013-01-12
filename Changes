@@ -2,7 +2,7 @@ Revision history for {{$dist->name}}
 
 {{$NEXT}}
 
-	Support specifying the git binary location on new (Todd Rinaldp)
+	Support specifying the git binary location on new (Todd Rinaldo)
 
 0.028     2012-10-19 06:55:15 America/Los_Angeles
 
