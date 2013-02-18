@@ -386,6 +386,17 @@ arguments are passed as ordinary command arguments.
 
   $git->checkout("mybranch");
 
+I<N.b.> Options that are given with a leading '-' (with the exception of
+special options noted below) are applied as arguments to the C<git> command
+itself; options without a leading '-' are applied as arguments to the
+sub-command. For example:
+
+  $git->command({ -foo => 1 , bar => 2 });
+
+invokes the command line
+
+  git --foo=1 command --bar=2
+
 I<N.b.> Because of the way arguments are parsed, should you need to pass an
 explicit '0' value to an option (for example, to have the same effect as
 C<--abrrev=0> on the command line), you should pass it with a leading space, like so:
