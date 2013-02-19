@@ -74,6 +74,42 @@ sub _opt {
   ;
 }
 
+sub _parse_args {
+  my $cmd = shift;
+  die "initial argument must not be a reference\n"
+    if ref $cmd;
+
+  my( $stdin , @pre_cmd , @post_cmd );
+
+  foreach ( @_ ) {
+    if ( ref $_ eq 'HASH' ) {
+      $stdin = delete $_->{-STDIN}
+        if exists $_->{-STDIN};
+
+      for my $name ( keys %$_ ) {
+        my $val = delete $_->{$name};
+        next if $val eq '0';
+
+        if ( $name =~ s/^-// ) {
+          push @pre_cmd , _opt( $name ) . _munge_val( $name , $val );
+        }
+        else {
+          ( $name, $val ) = _message_tempfile( $val )
+            if _win32_multiline_commit_msg( $cmd, $name, $val );
+
+          push @post_cmd , _opt( $name ) . _munge_val( $name , $val );
+        }
+      }
+    }
+    elsif ( ref $_ ) {
+      die "Git::Wrapper command arguments must be plain scalars or hashrefs.\n";
+    }
+    else { push @post_cmd , $_; }
+  }
+
+  return( [ @pre_cmd , $cmd , @post_cmd ] , $stdin );
+}
+
 sub RUN {
   my $self = shift;
 
@@ -82,34 +118,9 @@ sub RUN {
 
   my $cmd = shift;
 
-  my $opt = ref $_[0] eq 'HASH' ? shift : {};
+  my( $parts , $stdin ) = _parse_args( $cmd , @_ );
 
-  my @cmd = $self->git;
-
-  my $stdin = delete $opt->{-STDIN};
-
-  for (grep { /^-/ } keys %$opt) {
-    (my $name = $_) =~ s/^-//;
-
-    my $val = delete $opt->{$_};
-    next if $val eq '0';
-
-    push @cmd, _opt($name) . _munge_val($name, $val);
-  }
-
-  push @cmd, $cmd;
-
-  for my $name (keys %$opt) {
-    my $val = delete $opt->{$name};
-    next if $val eq '0';
-
-    ( $name, $val ) = $self->_message_tempfile( $val )
-      if $self->_win32_multiline_commit_msg( $cmd, $name, $val );
-
-    push @cmd,  _opt($name) . _munge_val($name, $val);
-  }
-
-  push @cmd, @_;
+  my @cmd = ( $self->git , @$parts );
 
   my( @out , @err );
 
@@ -178,7 +189,7 @@ sub _munge_val {
 }
 
 sub _win32_multiline_commit_msg {
-  my ( $self, $cmd, $name, $val ) = @_;
+  my ( $cmd, $name, $val ) = @_;
 
   return 0 if $^O ne "MSWin32";
   return 0 if $cmd ne "commit";
@@ -189,7 +200,7 @@ sub _win32_multiline_commit_msg {
 }
 
 sub _message_tempfile {
-  my ( $self, $message ) = @_;
+  my ( $message ) = @_;
 
   my $tmp = File::Temp->new( UNLINK => 0 );
   $tmp->print( $message );
@@ -377,6 +388,8 @@ argument passing, instead of CLI-style C<--options> as L<Git> does.
 
 Except as documented, every git subcommand is available as a method on a
 Git::Wrapper object.  Replace any hyphens in the git command with underscores.
+
+#FIXME write this to reflect new parsing strategy
 
 The first argument should be a hashref containing options and their values.
 Boolean options are either true (included) or false (excluded).  The remaining
