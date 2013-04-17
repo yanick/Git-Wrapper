@@ -114,11 +114,17 @@ SKIP:
 my @raw_log = $git->log({ raw => 1 });
 is(@raw_log, 1, 'one raw log entry');
 
-my $raw_log = $raw_log[0];
-my $excepted_mod = Git::Wrapper::File::RawModification->new(
-  "foo/bar","A",'000000','100644','0000000',"ce01362"
-);
-is_deeply($raw_log->modifications, $excepted_mod);
+SKIP: {
+  if ( $^O eq "MSWin32" ) {
+    skip 'testing file permissions on Windows is unreliable; see also core.filemode', 1;
+  }
+
+  my $raw_log = $raw_log[0];
+  my $excepted_mod = Git::Wrapper::File::RawModification->new(
+    "foo/bar","A",'000000','100644','0000000',"ce01362"
+  );
+  is_deeply($raw_log->modifications, $excepted_mod);
+}
 
 SKIP: {
     # Test empty commit message
