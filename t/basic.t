@@ -127,6 +127,10 @@ SKIP: {
 }
 
 SKIP: {
+    if ( versioncmp( $git->version , '1.7.0.5') eq -1 ) {
+      skip 'testing old git without commit --allow-empty-message support' , 1;
+    }
+
     # Test empty commit message
     IO::File->new(">" . File::Spec->catfile($dir, qw(second_commit)))->print("second_commit\n");
     $git->add('second_commit');
