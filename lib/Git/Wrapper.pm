@@ -740,7 +740,7 @@ instead pass the binary location (git_binary) to new on object creation.
 =head1 SEE ALSO
 
 L<VCI::VCS::Git> is the git implementation for L<VCI>, a generic interface to
-version-controle systems.
+version-control systems.
 
 L<Other Perl Git Wrappers|https://metacpan.org/module/Git::Repository#OTHER-PERL-GIT-WRAPPERS>
 is a list of other Git interfaces in Perl. If L<Git::Wrapper> doesn't scratch
