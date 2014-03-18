@@ -4,7 +4,7 @@ Git::Wrapper - Wrap git(7) command-line interface
 
 # VERSION
 
-version 0.031
+version 0.032
 
 # SYNOPSIS
 
@@ -355,7 +355,7 @@ prefer)
 
 # COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2008 by Hans Dieter Pearcey.
+This software is copyright (c) 2014 by Hans Dieter Pearcey.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
