@@ -2,6 +2,9 @@ Revision history for {{$dist->name}}
 
 {{$NEXT}}
 
+        Fix typo in minimum version required of File::pushd (Russell
+        Jenkins)
+
 0.033     2014-07-24 14:45:05-07:00 America/Los_Angeles
 
         require File::pushd 1.05 at a minimum
