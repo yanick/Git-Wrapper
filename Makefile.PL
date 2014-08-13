@@ -15,7 +15,7 @@ die 'git seems broken; maybe check your HOME environment variable?'
 
 use 5.006;
 
-use ExtUtils::MakeMaker;
+use ExtUtils::MakeMaker 6.30;
 
 
 
@@ -24,7 +24,7 @@ my %WriteMakefileArgs = (
   "AUTHOR" => "Hans Dieter Pearcey <hdp\@cpan.org>, Chris Prather <chris\@prather.org>, John SJ Anderson <genehack\@genehack.org>",
   "CONFIGURE_REQUIRES" => {
     "Devel::CheckBin" => 0,
-    "ExtUtils::MakeMaker" => 0,
+    "ExtUtils::MakeMaker" => "6.30",
     "File::Spec" => 0
   },
   "DISTNAME" => "Git-Wrapper",
@@ -52,7 +52,7 @@ my %WriteMakefileArgs = (
     "Test::Exception" => 0,
     "Test::More" => 0
   },
-  "VERSION" => "0.035",
+  "VERSION" => "0.036",
   "test" => {
     "TESTS" => "t/*.t"
   }
@@ -90,3 +90,6 @@ delete $WriteMakefileArgs{CONFIGURE_REQUIRES}
   unless eval { ExtUtils::MakeMaker->VERSION(6.52) };
 
 WriteMakefile(%WriteMakefileArgs);
+
+
+
