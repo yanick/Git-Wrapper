@@ -310,21 +310,20 @@ sub _message_tempfile {
   return ( "file", '"'.$tmp->filename.'"' );
 }
 
-sub _munge_val {
+sub _opt_and_val {
   my( $name , $val ) = @_;
 
-  return $val eq '1'       ? ""
-    : length($name) == 1 ? $val
-      :                      "=$val";
-}
-
-sub _opt {
-  my $name = shift;
   $name =~ tr/_/-/;
-  return length($name) == 1
+  my $opt = length($name) == 1
     ? "-$name"
       : "--$name"
         ;
+
+  my $value = $val eq '1' ? ""
+    : length($name) == 1 ? $val
+      :                      "=$val";
+
+  return $opt . $value;
 }
 
 sub _parse_args {
@@ -344,13 +343,13 @@ sub _parse_args {
         next if $val eq '0';
 
         if ( $name =~ s/^-// ) {
-          push @pre_cmd , _opt( $name ) . _munge_val( $name , $val );
+          push @pre_cmd , _opt_and_val( $name , $val );
         }
         else {
           ( $name, $val ) = _message_tempfile( $val )
             if _win32_multiline_commit_msg( $cmd, $name, $val );
 
-          push @post_cmd , _opt( $name ) . _munge_val( $name , $val );
+          push @post_cmd , _opt_and_val( $name , $val );
         }
       }
     }
