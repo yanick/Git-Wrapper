@@ -338,7 +338,7 @@ sub _parse_args {
       $stdin = delete $_->{-STDIN}
         if exists $_->{-STDIN};
 
-      for my $name ( keys %$_ ) {
+      for my $name ( sort keys %$_ ) {
         my $val = delete $_->{$name};
         next if $val eq '0';
 
