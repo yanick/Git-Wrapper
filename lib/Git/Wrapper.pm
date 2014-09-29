@@ -319,11 +319,10 @@ sub _opt_and_val {
       : "--$name"
         ;
 
-  my $value = $val eq '1' ? ""
-    : length($name) == 1 ? $val
-      :                      "=$val";
-
-  return $opt . $value;
+  return
+      $val eq '1' ? ($opt)
+    : length($name) == 1 ? ($opt, $val)
+    :                      "$opt=$val";
 }
 
 sub _parse_args {

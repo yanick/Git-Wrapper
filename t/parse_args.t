@@ -45,7 +45,7 @@ my @data = (
   ] ,
   [
     [ 'status' , { -a => 1, -b => 'foo', -cd => 1, -ef => 'foo', g => 1, h => 'bar', ij => 1, jk => 'baz' } ] ,
-    'git -a -bfoo --cd --ef=foo status -g -hbar --ij --jk=baz',
+    'git -a -b foo --cd --ef=foo status -g -h bar --ij --jk=baz',
   ] ,
   [
     [ 'rev-list' , qw/ --all --not master / , { remotes => '*trunk*' } , qw/ -- filename / ] ,
