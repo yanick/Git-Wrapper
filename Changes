@@ -3,6 +3,7 @@ Revision history for {{$dist->name}}
 {{$NEXT}}
 
         Various POD updates (B. Estrade)
+        Exclude failing test on Mac OS with older Git (#41) (John Anderson)
 
 0.038     2014-10-29 10:35:40-07:00 America/Los_Angeles
 

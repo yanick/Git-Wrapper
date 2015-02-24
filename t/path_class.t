@@ -51,14 +51,19 @@ is_deeply(
   [ 'foo/bar' ],
 );
 
-$git->commit({ message => "FIRST\n\n\tBODY\n" });
+SKIP: {
+  skip "Fails on Mac OS X with Git version < 1.7.5 for unknown reasons." , 1
+    if (($^O eq 'darwin') and ( versioncmp( $git->version , '1.7.5') eq -1 ));
 
-my $baz = $dir->file('baz');
+  $git->commit({ message => "FIRST\n\n\tBODY\n" });
 
-$baz->spew("world\n");
+  my $baz = $dir->file('baz');
 
-$git->add($baz);
+  $baz->spew("world\n");
 
-ok(1);
+  $git->add($baz);
+
+  ok(1);
+}
 
 done_testing();
