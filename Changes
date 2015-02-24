@@ -2,6 +2,8 @@ Revision history for {{$dist->name}}
 
 {{$NEXT}}
 
+0.039     2015-02-23 19:27:47-08:00 America/Los_Angeles (TRIAL RELEASE)
+
         Various POD updates (B. Estrade)
         Exclude failing test on Mac OS with older Git (#41) (John Anderson)
         POD and typo fixes (Doug Bell)

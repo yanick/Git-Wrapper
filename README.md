@@ -28,7 +28,7 @@ argument passing, instead of CLI-style `--options` as [Git](https://metacpan.org
 
 Except as documented, every git subcommand is available as a method on a
 Git::Wrapper object. Replace any hyphens in the git command with underscores
-(for example, 'git init-db' would become `$git-`init\_db>).
+(for example, `git init-db` would become `$git->init_db`).
 
 ## Method Arguments
 
@@ -72,7 +72,7 @@ invokes the command line
 
 _N.b._ Because of the way arguments are parsed, should you need to pass an
 explicit '0' value to an option (for example, to have the same effect as
-`--abrrev=0` on the command line), you should pass it with a leading space, like so:
+`--abbrev=0` on the command line), you should pass it with a leading space, like so:
 
     $git->describe({ abbrev => ' 0' };
 
