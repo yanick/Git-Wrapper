@@ -401,7 +401,7 @@ argument passing, instead of CLI-style C<--options> as L<Git> does.
 
 Except as documented, every git subcommand is available as a method on a
 Git::Wrapper object. Replace any hyphens in the git command with underscores
-(for example, 'git init-db' would become C<$git-E<gt>init_db>).
+(for example, C<git init-db> would become C<< $git->init_db >>).
 
 =head2 Method Arguments
 

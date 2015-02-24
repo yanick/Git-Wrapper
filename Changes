@@ -4,7 +4,8 @@ Revision history for {{$dist->name}}
 
         Various POD updates (B. Estrade)
         Exclude failing test on Mac OS with older Git (#41) (John Anderson)
-
+        POD and typo fixes (Doug Bell)
+        
 0.038     2014-10-29 10:35:40-07:00 America/Los_Angeles
 
 0.037     2014-08-13 12:43:00-05:00 America/Chicago
