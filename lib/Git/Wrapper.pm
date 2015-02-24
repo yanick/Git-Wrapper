@@ -401,7 +401,7 @@ argument passing, instead of CLI-style C<--options> as L<Git> does.
 
 Except as documented, every git subcommand is available as a method on a
 Git::Wrapper object. Replace any hyphens in the git command with underscores
-(for example, 'git init-db' would become C<$git->init_db>).
+(for example, 'git init-db' would become C<$git-E<gt>init_db>).
 
 =head2 Method Arguments
 
@@ -445,7 +445,7 @@ invokes the command line
 
 I<N.b.> Because of the way arguments are parsed, should you need to pass an
 explicit '0' value to an option (for example, to have the same effect as
-C<--abrrev=0> on the command line), you should pass it with a leading space, like so:
+C<--abbrev=0> on the command line), you should pass it with a leading space, like so:
 
   $git->describe({ abbrev => ' 0' };
 
