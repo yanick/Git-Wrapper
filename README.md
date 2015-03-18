@@ -4,7 +4,9 @@ Git::Wrapper - Wrap git(7) command-line interface
 
 # VERSION
 
-version 0.040
+[![CPAN version](https://badge.fury.io/pl/Git-Wrapper.svg)](http://badge.fury.io/pl/Git-Wrapper)
+[![Build Status](https://travis-ci.org/genehack/Git-Wrapper.svg?branch=master)](https://travis-ci.org/genehack/Git-Wrapper)
+[![Coverage Status](https://coveralls.io/repos/genehack/Git-Wrapper/badge.svg?branch=master)](https://coveralls.io/r/genehack/Git-Wrapper?branch=master)
 
 # SYNOPSIS
 
