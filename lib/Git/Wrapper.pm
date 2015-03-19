@@ -11,7 +11,7 @@ our $DEBUG=0;
 # https://github.com/genehack/Git-Wrapper/issues/13
 delete $ENV{GIT_PAGER_IN_USE};
 
-use File::pushd;
+use File::chdir;
 use File::Temp;
 use IPC::Open3      qw();
 use Scalar::Util    qw(blessed);
@@ -83,7 +83,7 @@ sub RUN {
   my( @out , @err );
 
   {
-    my $d = pushd $self->dir unless $cmd eq 'clone';
+    local $CWD = $self->dir unless $cmd eq 'clone';
 
     my ($wtr, $rdr, $err);
 
