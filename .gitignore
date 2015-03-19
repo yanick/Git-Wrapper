@@ -13,3 +13,4 @@ MANIFEST
 META.yml
 .*.swp
 .build
+!releases/*.tar.gz
