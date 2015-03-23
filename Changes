@@ -2,6 +2,9 @@ Revision history for {{$dist->name}}
 
 {{$NEXT}}
 
+        Using "--format" with the log method now throws a
+        Git::Wrapper::Exception (B. Estrade)
+
 0.041     2015-03-18 22:14:08-07:00 America/Los_Angeles (TRIAL RELEASE)
 
         Switch from File::pushd to File::chdir (John Anderson)
