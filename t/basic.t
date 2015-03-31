@@ -143,6 +143,8 @@ sub _timeout (&) {
     return $timeout;
 }
 
+my $commit_count = 1;
+
 SKIP: {
     if ( versioncmp( $git->version , '1.7.0.5') eq -1 ) {
       skip 'testing old git without commit --allow-empty-message support' , 1;
@@ -168,10 +170,11 @@ SKIP: {
 
     @log = $git->log();
     is(@log, 2, 'two log entries, one with empty commit message');
+    $commit_count++;
 };
 
 my @out = $git->RUN('log','--format=%H');
-ok scalar @out == 2, q{using RUN('log','--format=%H') to get all 2 commit SHAs};
+ok scalar @out == $commit_count, q{using RUN('log','--format=%H') to get all 2 commit SHAs};
 
 # test --message vs. -m
 my @arg_tests = (
