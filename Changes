@@ -2,7 +2,7 @@ Revision history for {{$dist->name}}
 
 {{$NEXT}}
 
-0.043     2015-03-31 11:54:27-04:00 America/New_York (TRIAL RELEASE)
+0.043-effup 2015-03-31 11:54:27-04:00 America/New_York (TRIAL RELEASE)
 
         Handle SKIP affecting number of commits in test (Gianni Ceccarelli)
 
