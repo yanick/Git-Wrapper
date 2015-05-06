@@ -2,6 +2,12 @@ Revision history for {{$dist->name}}
 
 {{$NEXT}}
 
+        Document 'modifications' method on G::W::Log (John Anderson)
+
+        Parse raw logs correctly (John Anderson)
+
+        Set modifications properly in constructor (John Anderson) 
+
 0.044     2015-04-07 21:10:31-07:00 America/Los_Angeles
 
         No changes from the (borked) v0.043-TRIAL
