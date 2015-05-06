@@ -227,6 +227,9 @@ sub log {
     }
 
     push @logs, $current;
+
+    last unless @out; # handle running out of log
+    shift @out unless $out[0] =~ /^commit/;  # blank line at end of entry, except merge commits;
   }
 
   return @logs;
