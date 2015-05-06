@@ -7,11 +7,11 @@ use warnings;
 
 sub new {
   my ($class, $id, %arg) = @_;
-  my $modifications = defined $arg{modifications} ? $arg{modifications} : [];
+  my $modifications = defined $arg{modifications} ? delete $arg{modifications} : [];
   return bless {
     id            => $id,
     attr          => {},
-    modifications => [],
+    modifications => $modifications,
     %arg,
   } => $class;
 }
