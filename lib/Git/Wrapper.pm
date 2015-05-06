@@ -534,7 +534,9 @@ L<Git::Wrapper>.
 
 =head3 Using C<eval>
 
-If for some reason you are unable to use L<Try::Tiny>, it is also possible to use the C<eval> function to catch exception objects. B<THIS IS NOT RECOMMENDED!>
+If for some reason you are unable to use L<Try::Tiny>, it is also possible to
+use the C<eval> function to catch exception objects. B<THIS IS NOT
+RECOMMENDED!>
 
   my $git = Git::Wrapper->new('/path/to/my/repo');
 
