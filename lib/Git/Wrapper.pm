@@ -597,7 +597,7 @@ you want ANSI color highlighting, you'll need to bypass via the RUN() method
 Instead of giving back an arrayref of lines, the C<log> method returns a list
 of C<Git::Wrapper::Log> objects.
 
-There are four methods in a C<Git::Wrapper::Log> objects:
+There are five methods in a C<Git::Wrapper::Log> objects:
 
 =over
 
@@ -609,7 +609,33 @@ There are four methods in a C<Git::Wrapper::Log> objects:
 
 =item * message
 
+=item * modifications
+
+Only populated with when C<< raw => 1 >> option is set; see L<Raw logs> below.
+
 =back
+
+=head3 Raw logs
+
+Calling the C<log> method with the C<< raw => 1 >> option set, as below, will
+do additional parsing to populate the C<modifications> attribute on each
+C<Git::Wrapper::Log> object. This method returns a list of
+C<Git::Wrapper::File::RawModification> objects, with can be used to get
+filenames, permissions, and other metadata associated with individual files in
+the given commit. A short example, to loop over all commits in the log and
+print the filenames that were changed in each commit, one filename per file:
+
+    my @logs = $git->log({ raw => 1 });
+    foreach my $log ( @logs ) {
+        say "In commit '" . $log->id . "', the following files changed:";
+        my @mods = $log->modifications;
+        foreach my $mod ( @mods ) {
+            say "\t" . $mod->filename;
+        }
+    }
+
+Note that some commits (e.g., merge commits) will not contain any file
+changes. The C<modifications> method will return an empty list in that case.
 
 =head3 Custom log formats
 
