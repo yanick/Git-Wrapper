@@ -179,6 +179,7 @@ sub log {
   my $opt  = ref $_[0] eq 'HASH' ? shift : {};
   $opt->{no_color}         = 1;
   $opt->{pretty}           = 'medium';
+  $opt->{no_abbrev}        = 1;  # https://github.com/genehack/Git-Wrapper/issues/67
 
   $opt->{no_abbrev_commit} = 1
     if $self->supports_log_no_abbrev_commit;
@@ -219,7 +220,9 @@ sub log {
     if ($raw) {
       my @modifications;
 
-      while(@out and $out[0] =~ m/^\:(\d{6}) (\d{6}) (\w{7})\.\.\. (\w{7})\.\.\. (\w{1})\t(.*)$/) {
+      # example output:
+      # :000000 100644 0000000000000000000000000000000000000000 ce013625030ba8dba906f756967f9e9ca394464a A     foo/bar
+      while(@out and $out[0] =~ m/^\:(\d{6}) (\d{6}) (\w{40}) (\w{40}) (\w{1})\t(.*)$/) {
         push @modifications, Git::Wrapper::File::RawModification->new($6,$5,$1,$2,$3,$4);
         shift @out;
       }

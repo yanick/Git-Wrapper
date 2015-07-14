@@ -123,7 +123,7 @@ SKIP: {
 
   my $raw_log = $raw_log[0];
   my $excepted_mod = Git::Wrapper::File::RawModification->new(
-    "foo/bar","A",'000000','100644','0000000',"ce01362"
+    "foo/bar","A",'000000','100644','0000000000000000000000000000000000000000','ce013625030ba8dba906f756967f9e9ca394464a'
   );
   is_deeply($raw_log->modifications, $excepted_mod);
 }
