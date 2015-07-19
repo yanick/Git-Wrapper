@@ -2,6 +2,8 @@ Revision history for {{$dist->name}}
 
 {{$NEXT}}
 
+        No changes since last development release
+
 0.044_91  2015-07-13 18:12:05-07:00 America/Los_Angeles (TRIAL RELEASE)
 
         Uncoditionally set no_abbrev option to improve raw log parsing [#67] (John Anderson)
@@ -12,7 +14,7 @@ Revision history for {{$dist->name}}
 
         Parse raw logs correctly (John Anderson)
 
-        Set modifications properly in constructor (John Anderson) 
+        Set modifications properly in constructor (John Anderson)
 
 0.044     2015-04-07 21:10:31-07:00 America/Los_Angeles
 
@@ -97,11 +99,11 @@ Revision history for {{$dist->name}}
 
 	Support specifying the git binary location on new (Todd Rinaldo)
         Rework argument passing (#29) (John SJ Anderson, Mark Price)
-        
+
 0.028     2012-10-19 06:55:15 America/Los_Angeles
 
         Fix $git->branch compatibility with git < 1.7.1 by tweaking color calling convention (Vyacheslav Matyukhin)
-    
+
 0.027     2012-09-19 22:32:52 America/New_York
 
         Disable --no-abbrev-commit when git doesn't support it
