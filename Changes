@@ -2,6 +2,10 @@ Revision history for {{$dist->name}}
 
 {{$NEXT}}
 
+0.045     2015-07-19 09:46:07-07:00 America/Los_Angeles
+
+        And this time let's actually use a non-trial release, dummy... 
+
 0.044_92  2015-07-19 09:45:11-07:00 America/Los_Angeles (TRIAL RELEASE)
 
         No changes since last development release
