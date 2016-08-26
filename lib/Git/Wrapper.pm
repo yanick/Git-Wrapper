@@ -802,7 +802,7 @@ methods described above (i.e., C<log>, C<status>, etc.). This can be useful
 in various situations, such as when you want to produce a particular log
 output format that isn't compatible with the way C<Git::Wrapper> constructs
 C<Git::Wrapper::Log>, or when you want raw C<git status> output that isn't
-parsed into a <Git::Wrapper::Status> object.
+parsed into a C<Git::Wrapper::Status> object.
 
 This method should be called with an initial string argument of the C<git>
 subcommand you want to run, followed by a hashref containing options and their
