@@ -184,7 +184,7 @@ sub log {
   $opt->{no_abbrev_commit} = 1
     if $self->supports_log_no_abbrev_commit;
   $opt->{no_expand_tabs} = 1
-    if $self->supports_no_expand_tabs;
+    if $self->supports_log_no_expand_tabs;
 
   my $raw = defined $opt->{raw} && $opt->{raw};
 
@@ -291,6 +291,14 @@ sub supports_log_no_abbrev_commit {
   return ( versioncmp( $self->version , '1.7.6' ) eq -1 ) ? 0 : 1;
 }
 
+sub supports_log_no_expand_tabs {
+  my $self = shift;
+
+  # The '--no-expand-tabs' option to git log was added in version 2.9.0
+  return 0 if ( versioncmp( $self->version , '2.9' ) eq -1 );
+  return 1;
+}
+
 sub supports_log_raw_dates {
   my $self = shift;
 
@@ -304,14 +312,6 @@ sub supports_status_porcelain {
 
   # The '--porcelain' option to git status was added in version 1.7.0
   return 0 if ( versioncmp( $self->version , '1.7' ) eq -1 );
-  return 1;
-}
-
-sub supports_no_expand_tabs {
-  my $self = shift;
-
-  # The '--no-expand-tabs' option to git log was added in version 2.9.0
-  return 0 if ( versioncmp( $self->version , '2.9' ) eq -1 );
   return 1;
 }
 
@@ -671,14 +671,17 @@ binary in the current $PATH.
 
 =head2 supports_log_no_abbrev_commit
 
+=head2 supports_log_no_expand_tabs
+
 =head2 supports_log_raw_dates
 
 =head2 supports_hash_object_filters
 
 These methods return a true or false value (1 or 0) indicating whether the git
 binary being used has support for these options. (The '--porcelain' option on
-'git status', the '--no-abbrev-commit' and '--date=raw' options on 'git log',
-and the '--no-filters' option on 'git hash-object' respectively.)
+'git status', the '--no-abbrev-commit', '--no-expand-tabs', and '--date=raw'
+options on 'git log', and the '--no-filters' option on 'git hash-object'
+respectively.)
 
 These are primarily for use in this distribution's test suite, but may also be
 useful when writing code using Git::Wrapper that might be run with different
