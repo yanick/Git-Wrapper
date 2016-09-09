@@ -41,7 +41,7 @@ A new error object may be generated and thrown as follows:
 
 =head2 new
 
-The standard constuctor for this class.
+The standard constructor for this class.
 
 =head2 error
 
