@@ -137,6 +137,7 @@ SKIP: {
   my($raw_mod_obj) = $second_raw_log[0]->modifications;
   is($raw_mod_obj->score(), 100, 'expected score');
   is($raw_mod_obj->type() , 'R', 'expected type');
+  is($raw_mod_obj->filename(), 'foo/bar-moved', 'expected filename');
 }
 
 sub _timeout (&) {
