@@ -130,11 +130,13 @@ SKIP: {
 
   $git->RUN('mv', 'foo/bar', 'foo/bar-moved');
   $git->commit({ message => "move a file" });
-  @raw_log = $git->log({ raw => 1, follow => 1 }, '-n1', '--', 'foo/bar-moved');
-  is(@raw_log, 1, 'one raw log entry');
-  ( $onemodif ) = $raw_log[0]->modifications;
-  is $onemodif->score(), 100;
-  is $onemodif->type(), 'R';
+
+  my @second_raw_log = $git->log({ raw => 1, follow => 1 }, '-n1', '--', 'foo/bar-moved');
+  is(@second_raw_log, 1, 'still one raw log entry');
+
+  my($raw_mod_obj) = $second_raw_log[0]->modifications;
+  is($raw_mod_obj->score(), 100, 'expected score');
+  is($raw_mod_obj->type() , 'R', 'expected type');
 }
 
 sub _timeout (&) {
