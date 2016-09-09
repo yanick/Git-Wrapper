@@ -16,7 +16,7 @@ sub new {
   return bless {
     filename   => $filename,
     type       => $type,
-    score 	   => $score,
+    score      => $score,
     perms_from => $perms_from,
     perms_to   => $perms_to,
     blob_from  => $blob_from,
@@ -26,7 +26,7 @@ sub new {
 
 sub filename   { shift->{filename} }
 sub type       { shift->{type} }
-sub score       { shift->{score} }
+sub score      { shift->{score} }
 
 sub perms_from { shift->{perms_from} }
 sub perms_to   { shift->{perms_to} }

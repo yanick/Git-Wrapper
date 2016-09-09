@@ -121,11 +121,12 @@ SKIP: {
     skip 'testing file permissions on Windows is unreliable; see also core.filemode', 1;
   }
 
-  my $onemodif = $raw_log[0];
-  my $excepted_mod = Git::Wrapper::File::RawModification->new(
+  my $raw_log = $raw_log[0];
+  my $expected_mod = Git::Wrapper::File::RawModification->new(
     "foo/bar","A",'000000','100644','0000000000000000000000000000000000000000','ce013625030ba8dba906f756967f9e9ca394464a'
   );
-  cmp_deeply($onemodif->modifications, $excepted_mod) or diag explain $onemodif->modifications, ' vs ', explain $excepted_mod;
+  is_deeply($raw_log->modifications, $expected_mod, 'expected raw modification object')
+    or diag explain $raw_log->modifications, ' vs ', explain $expected_mod;
 
   $git->RUN('mv', 'foo/bar', 'foo/bar-moved');
   $git->commit({ message => "move a file" });
@@ -177,12 +178,12 @@ SKIP: {
     }
 
     @log = $git->log();
-    is(@log, 3, 'two log entries, one with empty commit message');
+    is(@log, 3, 'three log entries, one with empty commit message');
     $commit_count++;
 };
 
 my @out = $git->RUN('log','--format=%H');
-cmp_ok scalar @out, '==', $commit_count, q{using RUN('log','--format=%H') to get all 2 commit SHAs};
+ok scalar @out == $commit_count, q{using RUN('log','--format=%H') to get all 2 commit SHAs};
 
 # test --message vs. -m
 my @arg_tests = (
