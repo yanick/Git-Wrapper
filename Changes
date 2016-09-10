@@ -4,11 +4,13 @@ Revision history for {{$dist->name}}
 
 0.045_091 2016-09-10 14:26:13-07:00 America/Los_Angeles (TRIAL RELEASE)
 
+        Properly handle scores in raw log files (Atoomic)
+        Update error message for inability to run 'git config --list'
+
 0.045_090 2016-09-08 21:59:58-07:00 America/Los_Angeles (TRIAL RELEASE)
 
         Fix tabs being expanded in log output in git 2.9+ (Graham Knop)
         Misc POD fixes (gregor herrmann/Debian, Philippe Bruhat)
-        Properly handle scores in raw log files (Atoomic)
 
 0.045     2015-07-19 09:46:07-07:00 America/Los_Angeles
 
