@@ -122,10 +122,34 @@ SKIP: {
   }
 
   my $raw_log = $raw_log[0];
-  my $excepted_mod = Git::Wrapper::File::RawModification->new(
+  my $expected_mod = Git::Wrapper::File::RawModification->new(
     "foo/bar","A",'000000','100644','0000000000000000000000000000000000000000','ce013625030ba8dba906f756967f9e9ca394464a'
   );
-  is_deeply($raw_log->modifications, $excepted_mod);
+  is_deeply($raw_log->modifications, $expected_mod, 'expected raw modification object')
+    or diag explain $raw_log->modifications, ' vs ', explain $expected_mod;
+
+  $git->RUN('mv', 'foo/bar', 'foo/bar-moved');
+  $git->commit({ message => "move a file" });
+
+  my @second_raw_log = $git->log({ raw => 1, follow => 1 }, '-n1', '--', 'foo/bar-moved');
+  is(@second_raw_log, 1, 'still one raw log entry');
+
+  my($raw_mod_obj) = $second_raw_log[0]->modifications;
+  is($raw_mod_obj->score(), 100, 'expected score');
+  is($raw_mod_obj->type() , 'R', 'expected type');
+  is($raw_mod_obj->filename(), 'foo/bar-moved', 'expected filename');
+
+  system("cp $dir/foo/bar-moved $dir/foo/barbar");
+  $git->add('foo/barbar');
+  $git->commit({ message => 'copy a file'});
+
+  my @third_raw_log = $git->log({ raw => 1, follow => 1}, '-n1', '--', 'foo/barbar');
+  is(@third_raw_log, 1, 'one for the third time');
+
+  my($next_raw_mod_obj) = $third_raw_log[0]->modifications;
+  is($next_raw_mod_obj->score(),    100,          'expected copy score');
+  is($next_raw_mod_obj->type(),     'C',          'expected copy type');
+  is($next_raw_mod_obj->filename(), 'foo/barbar', 'expected copy filename');
 }
 
 sub _timeout (&) {
@@ -143,7 +167,7 @@ sub _timeout (&) {
     return $timeout;
 }
 
-my $commit_count = 1;
+my $commit_count = 2;
 
 SKIP: {
     if ( versioncmp( $git->version , '1.7.0.5') eq -1 ) {
@@ -169,12 +193,12 @@ SKIP: {
     }
 
     @log = $git->log();
-    is(@log, 2, 'two log entries, one with empty commit message');
-    $commit_count++;
+    is(@log, 4, 'four log entries, one with empty commit message');
+    $commit_count+=2;
 };
 
 my @out = $git->RUN('log','--format=%H');
-ok scalar @out == $commit_count, q{using RUN('log','--format=%H') to get all 2 commit SHAs};
+ok scalar @out == $commit_count, q{using RUN('log','--format=%H') to get all four commit SHAs};
 
 # test --message vs. -m
 my @arg_tests = (
