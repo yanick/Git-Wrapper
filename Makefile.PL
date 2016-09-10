@@ -11,7 +11,7 @@ use Devel::CheckBin;
 check_bin('git');
 
 require File::Spec;
-die 'git seems broken; maybe check your HOME environment variable?'
+die 'Unable to run "git config --list". Do you need to add a ~/.gitconfig file?'
     if system('git config --list >'.File::Spec->devnull);
 
 use ExtUtils::MakeMaker;
@@ -50,7 +50,7 @@ my %WriteMakefileArgs = (
     "Test::Exception" => 0,
     "Test::More" => 0
   },
-  "VERSION" => "0.045_090",
+  "VERSION" => "0.045_091",
   "test" => {
     "TESTS" => "t/*.t"
   }
