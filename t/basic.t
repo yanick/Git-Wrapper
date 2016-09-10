@@ -138,6 +138,18 @@ SKIP: {
   is($raw_mod_obj->score(), 100, 'expected score');
   is($raw_mod_obj->type() , 'R', 'expected type');
   is($raw_mod_obj->filename(), 'foo/bar-moved', 'expected filename');
+
+  system("cp $dir/foo/bar-moved $dir/foo/barbar");
+  $git->add('foo/barbar');
+  $git->commit({ message => 'copy a file'});
+
+  my @third_raw_log = $git->log({ raw => 1, follow => 1}, '-n1', '--', 'foo/barbar');
+  is(@third_raw_log, 1, 'one for the third time');
+
+  my($next_raw_mod_obj) = $third_raw_log[0]->modifications;
+  is($next_raw_mod_obj->score(),    100,          'expected copy score');
+  is($next_raw_mod_obj->type(),     'C',          'expected copy type');
+  is($next_raw_mod_obj->filename(), 'foo/barbar', 'expected copy filename');
 }
 
 sub _timeout (&) {

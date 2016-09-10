@@ -11,6 +11,7 @@ sub new {
   my $score;
   if ( defined $type && $type =~ s{^(.)([0-9]+)$}{$1} ) {
     $score = $2;
+    (undef, $filename) = split(qr{\s+}, $filename, 2 );
   }
 
   return bless {
