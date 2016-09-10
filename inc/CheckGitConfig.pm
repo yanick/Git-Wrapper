@@ -11,7 +11,7 @@ around _build_MakeFile_PL_template => sub {
 
 my $git_check = <<GIT_CHECK;
 require File::Spec;
-die 'git seems broken; maybe check your HOME environment variable?'
+die 'Unable to run "git config --list". Do you need to add a ~/.gitconfig file?'
     if system('git config --list >'.File::Spec->devnull);
 
 GIT_CHECK
