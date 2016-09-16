@@ -196,11 +196,12 @@ SKIP: {
     }
 
     @log = $git->log();
-    is(@log, $commit_count, 'four log entries, one with empty commit message');
+    is(@log, $commit_count, "$commit_count log entries, one with empty commit message");
 };
 
 my @out = $git->RUN('log','--format=%H');
-is scalar @out, $commit_count, q{using RUN('log','--format=%H') to get all four commit SHAs};
+is scalar @out, $commit_count,
+  q{using RUN('log','--format=%H') to get all $commit_count commit SHAs};
 
 # test --message vs. -m
 my @arg_tests = (
