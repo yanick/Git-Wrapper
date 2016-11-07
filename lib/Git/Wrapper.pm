@@ -496,7 +496,7 @@ yourself before passing it to C<Git::Wrapper> methods.
 =head2 Error handling
 
 If a git command exits nonzero, a C<Git::Wrapper::Exception> object will be
-thrown (via C<die>) and may be capture via C<eval> or L<Try::Tiny>, for
+thrown (via C<die>) and may be captured via C<eval> or L<Try::Tiny>, for
 example.
 
 The error object has three useful methods:
@@ -517,7 +517,7 @@ C<git> will frequently not have any output with a successful command.
 
 =item * status
 
-Returns the non-zero exit code reported by git on error
+Returns the non-zero exit code reported by git on error.
 
 =back
 
@@ -729,7 +729,7 @@ There are four status groups, each of which may contain zero or more changes.
 
 =back
 
-Note that a single file can occur in more than one group. Eg, a modified file
+Note that a single file can occur in more than one group. E.g., a modified file
 that has been added to the index will appear in the 'indexed' list. If it is
 subsequently further modified it will additionally appear in the 'changed'
 group.
@@ -751,7 +751,7 @@ an empty string.
 Indicates what has changed about the file.
 
 Within each group (except 'conflict') a file can be in one of a number of
-modes, although some modes only occur in some groups (eg, 'added' never appears
+modes, although some modes only occur in some groups (e.g., 'added' never appears
 in the 'unknown' group).
 
 =over
