@@ -415,7 +415,7 @@ __END__
 
   # specify which git binary to use
   my $git = Git::Wrapper->new({
-    dir        => '/var/foo ,
+    dir        => '/var/foo' ,
     git_binary => '/path/to/git/bin/git' ,
   });
 
