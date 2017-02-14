@@ -68,6 +68,14 @@ sub AUTOLOAD {
 sub ERR { shift->{err} }
 sub OUT { shift->{out} }
 
+sub AUTOPRINT {
+    my $self = shift;
+    
+    $self->{autoprint} = shift if @_;
+
+    return $self->{autoprint};
+}
+
 sub RUN {
   my $self = shift;
 
@@ -137,6 +145,12 @@ sub RUN {
 
   chomp(@out);
   $self->{out} = \@out;
+
+  if( $self->{autoprint} ) {
+      print $_, "\n" for @out;
+
+      warn $_, "\n" for @err;
+  }
 
   return @out;
 }
@@ -586,6 +600,10 @@ RECOMMENDED!>
   # To force the git binary location
   my $git = Git::Wrapper->new($dir, 'git_binary' => '/usr/local/bin/git');
 
+  # prints the content of OUT and ERR to STDOUT and STDERR 
+  # after a command is run
+  my $git = Git::Wrapper->new($dir, autoprint => 1);
+
 =head2 git
 
   print $git->git; # /path/to/git/binary/being/used
@@ -836,6 +854,11 @@ values, and then a list of any other arguments.
 
     # getting the full of commit SHAs via `git log` by using the '--format' option
     my @log_lines = $git->RUN('log', '--format=%H');
+
+=head2 AUTOPRINT( $enabled )
+
+If set to C<true>, the content of C<OUT> and C<ERR> will automatically
+be printed on, respectively, STDOUT and STDERR after a command is run.
 
 =head2 ERR
 
